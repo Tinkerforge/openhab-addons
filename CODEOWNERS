@@ -323,6 +323,7 @@
 /bundles/org.openhab.binding.vitotronic/ @steand
 /bundles/org.openhab.binding.volvooncall/ @clinique @Jamstah
 /bundles/org.openhab.binding.warmup/ @jamesmelville
+/bundles/org.openhab.binding.warp/ @borg42
 /bundles/org.openhab.binding.weathercompany/ @mhilbush
 /bundles/org.openhab.binding.weatherunderground/ @lolodomo
 /bundles/org.openhab.binding.webthing/ @grro

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<thing:thing-descriptions bindingId="warp"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:thing="https://openhab.org/schemas/thing-description/v1.0.0"
+	xsi:schemaLocation="https://openhab.org/schemas/thing-description/v1.0.0 https://openhab.org/schemas/thing-description-1.0.0.xsd">
+
+	<!-- WARP Charger Bridge Type -->
+	<bridge-type id="warp-charger">
+		<label>WARP Charger</label>
+		<description>WARP Charger by Tinkerforge (compatible to WARP1 and WARP2)</description>
+
+		<channels>
+			<channel id="vehicle-state" typeId="vehicle-state-type"/>
+			<channel id="allowed-charging-current" typeId="allowed-charging-current-type"/>
+			<channel id="autostart" typeId="autostart-type"/>
+			<channel id="start-stop-charging" typeId="start-stop-charging-type"/>
+		</channels>
+
+		<config-description>
+			<parameter name="hostname" type="text" required="true">
+				<context>network-address</context>
+				<label>Hostname</label>
+				<description>Hostname or IP address of the WARP Charger</description>
+			</parameter>
+		</config-description>
+	</bridge-type>
+
+	<!-- WARP Energy Meter Thing Type -->
+	<thing-type id="warp-energy-meter">
+		<supported-bridge-type-refs>
+			<bridge-type-ref id="warp-charger"/>
+		</supported-bridge-type-refs>
+
+		<label>WARP Energy Meter</label>
+		<description>WARP Energy Meter is available in WARP Charger Pro (compatible to WARP1 and WARP2)</description>
+
+		<channels>
+			<channel id="power" typeId="power-type"/>
+			<channel id="energy-rel" typeId="energy-rel-type"/>
+			<channel id="energy-abs" typeId="energy-abs-type"/>
+		</channels>
+	</thing-type>
+
+	<!-- Channels -->
+	<channel-type id="vehicle-state-type">
+		<item-type>String</item-type>
+		<label>Vehicle State</label>
+		<description>Vehicle State</description>
+		<category>Text</category>
+		<state readOnly="true"/>
+	</channel-type>
+	<channel-type id="allowed-charging-current-type">
+		<item-type>Number:ElectricCurrent</item-type>
+		<label>Allowed Charging Current</label>
+		<description>Allowed Charging Current</description>
+		<category>Current</category>
+		<state min="6000" max="32000" step="1" readOnly="false" pattern="%.0f %unit%"/>
+	</channel-type>
+	<channel-type id="autostart-type">
+		<item-type>Switch</item-type>
+		<label>Autostart</label>
+		<description>Automatically start charging</description>
+		<tags>
+			<tag>Switchable</tag>
+		</tags>
+		<state readOnly="false"/>
+	</channel-type>
+	<channel-type id="start-stop-charging-type">
+		<item-type>String</item-type>
+		<label>Start/Stop Charging</label>
+		<description>Start/Stop Charging</description>
+		<command>
+			<options>
+				<option value="START">Start Charging</option>
+				<option value="STOP">Stop Charging</option>
+			</options>
+		</command>
+	</channel-type>
+	<channel-type id="power-type">
+		<item-type>Number:Power</item-type>
+		<label>Power</label>
+		<description>Power</description>
+		<category>Power</category>
+		<state readOnly="true" pattern="%.0f %unit%"/>
+	</channel-type>
+	<channel-type id="energy-rel-type">
+		<item-type>Number:Energy</item-type>
+		<label>Energy Relative</label>
+		<description>Energy Relative</description>
+		<category>Energy</category>
+		<state readOnly="true" pattern="%.1f %unit%"/>
+	</channel-type>
+	<channel-type id="energy-abs-type">
+		<item-type>Number:Energy</item-type>
+		<label>Energy Absolute</label>
+		<description>Energy Absolute</description>
+		<category>Energy</category>
+		<state readOnly="true" pattern="%.1f %unit%"/>
+	</channel-type>
+</thing:thing-descriptions>
